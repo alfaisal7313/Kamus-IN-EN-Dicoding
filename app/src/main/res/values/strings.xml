@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Kamus</string>
+    <string name="setting_language">Setting Language</string>
+    <string name="eng_ind">English-Indonesia</string>
+    <string name="ind_eng">Indonesia-English</string>
+    <string name="first_open">firstOpen</string>
+    <string name="dot">o</string>
+    <string name="terjemahan">Terjemahan</string>
+</resources>
