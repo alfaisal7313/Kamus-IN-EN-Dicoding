@@ -7,8 +7,8 @@ import android.preference.PreferenceManager;
 import com.example.arsa.kamus_in_en_dicoding.R;
 
 public class Pref {
-    private SharedPreferences preferences;
-    private Context context;
+    private final SharedPreferences preferences;
+    private final Context context;
 
     public Pref(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);

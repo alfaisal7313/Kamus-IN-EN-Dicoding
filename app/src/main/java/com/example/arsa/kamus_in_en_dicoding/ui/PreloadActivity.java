@@ -5,35 +5,30 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ProgressBar;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.arsa.kamus_in_en_dicoding.R;
 import com.example.arsa.kamus_in_en_dicoding.data.Pref;
 import com.example.arsa.kamus_in_en_dicoding.data.db.DatabaseContract;
 import com.example.arsa.kamus_in_en_dicoding.data.db.DictionaryHelper;
 import com.example.arsa.kamus_in_en_dicoding.data.model.Word;
+import com.example.arsa.kamus_in_en_dicoding.databinding.ActivityPreloadBinding;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class PreloadActivity extends AppCompatActivity {
-
-    @BindView(R.id.progress)
-    ProgressBar progressBar;
+    private ActivityPreloadBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preload);
-
-        ButterKnife.bind(this);
+        binding = ActivityPreloadBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         new LoadData().execute();
     }
@@ -64,8 +59,8 @@ public class PreloadActivity extends AppCompatActivity {
                 helper.open();
                 progress = 5;
                 publishProgress((int) progress);
-                Double progressMaxInsert = 100.0;
-                Double progressDiff = (progressMaxInsert - progress) / (words_In.size() + words_En.size());
+                double progressMaxInsert = 100.0;
+                double progressDiff = (progressMaxInsert - progress) / (words_In.size() + words_En.size());
 
                 helper.beginTransaction();
                 try {
@@ -108,7 +103,7 @@ public class PreloadActivity extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            progressBar.setProgress(values[0]);
+            binding.progress.setProgress(values[0]);
         }
 
         @Override
@@ -122,23 +117,21 @@ public class PreloadActivity extends AppCompatActivity {
 
     public ArrayList<Word> preLoadRaw(int langType) {
         ArrayList<Word> words = new ArrayList<>();
-        String line = null;
+        String line;
         BufferedReader reader;
         try {
             Resources res = getResources();
             InputStream raw_dict = res.openRawResource(langType);
 
             reader = new BufferedReader(new InputStreamReader(raw_dict));
-            int count = 0;
             do {
                 line = reader.readLine();
-                String[] splitstr = line.split("\t");
+                String[] splitStr = line.split("\t");
 
                 Word wordModel = new Word();
-                wordModel.setWord(splitstr[0]);
-                wordModel.setMeans(splitstr[1]);
+                wordModel.setWord(splitStr[0]);
+                wordModel.setMeans(splitStr[1]);
                 words.add(wordModel);
-                count++;
             } while (line != null);
         } catch (Exception e) {
             e.printStackTrace();

@@ -8,15 +8,15 @@ public class DatabaseContract {
     public static String TABLE_WORD_EN = "tbl_word_en";
 
     static class DictionaryColumn implements BaseColumns {
-        static String COLOMN_WORD = "word";
-        static String COLOMN_MEANS = "means";
+        static String COLUMN_WORD = "word";
+        static String COLUMN_MEANS = "means";
     }
 
     static String sqlCreateTable(String tableName) {
         return "CREATE TABLE " + tableName + "( " +
                 DictionaryColumn._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                DictionaryColumn.COLOMN_WORD + " TEXT, " +
-                DictionaryColumn.COLOMN_MEANS + " TEXT );";
+                DictionaryColumn.COLUMN_WORD + " TEXT, " +
+                DictionaryColumn.COLUMN_MEANS + " TEXT );";
     }
 
     static String sqlDeleteTable(String tableName) {

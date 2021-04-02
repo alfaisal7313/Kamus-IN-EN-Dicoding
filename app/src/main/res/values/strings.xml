@@ -6,4 +6,5 @@
     <string name="first_open">firstOpen</string>
     <string name="dot">o</string>
     <string name="terjemahan">Terjemahan</string>
+    <string name="hint_search">Search</string>
 </resources>

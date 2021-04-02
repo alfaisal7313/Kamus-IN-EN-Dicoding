@@ -11,13 +11,12 @@ import com.example.arsa.kamus_in_en_dicoding.data.model.Word;
 
 import java.util.ArrayList;
 
-import static com.example.arsa.kamus_in_en_dicoding.data.db.DatabaseContract.DictionaryColumn.COLOMN_MEANS;
-import static com.example.arsa.kamus_in_en_dicoding.data.db.DatabaseContract.DictionaryColumn.COLOMN_WORD;
+import static com.example.arsa.kamus_in_en_dicoding.data.db.DatabaseContract.DictionaryColumn.COLUMN_MEANS;
+import static com.example.arsa.kamus_in_en_dicoding.data.db.DatabaseContract.DictionaryColumn.COLUMN_WORD;
 
 public class DictionaryHelper {
-    private static String TAG = DictionaryHelper.class.getSimpleName();
-    private Context context;
-    private DatabaseHelper mHelper;
+    private static final String TAG = DictionaryHelper.class.getSimpleName();
+    private final Context context;
     private SQLiteDatabase mDatabase;
 
     public DictionaryHelper(Context context) {
@@ -25,7 +24,7 @@ public class DictionaryHelper {
     }
 
     public DictionaryHelper open() {
-        mHelper = new DatabaseHelper(context);
+        DatabaseHelper mHelper = new DatabaseHelper(context);
         mDatabase = mHelper.getWritableDatabase();
         return this;
     }
@@ -35,7 +34,7 @@ public class DictionaryHelper {
     }
 
     public ArrayList<Word> getByWord(String tableName, String queryWord) {
-        String sql = "SELECT * FROM " + tableName + " WHERE " + COLOMN_WORD + " LIKE '%" + queryWord.trim() + "%'";
+        String sql = "SELECT * FROM " + tableName + " WHERE " + COLUMN_WORD + " LIKE '%" + queryWord.trim() + "%'";
         Log.d(TAG, "getByWord: " + sql);
         return doQuery(sql);
     }
@@ -53,8 +52,8 @@ public class DictionaryHelper {
             do {
                 Word wordModel = new Word();
                 wordModel.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DictionaryColumn._ID)));
-                wordModel.setWord(cursor.getString(cursor.getColumnIndexOrThrow(COLOMN_WORD)));
-                wordModel.setMeans(cursor.getString(cursor.getColumnIndexOrThrow(DictionaryColumn.COLOMN_MEANS)));
+                wordModel.setWord(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_WORD)));
+                wordModel.setMeans(cursor.getString(cursor.getColumnIndexOrThrow(DictionaryColumn.COLUMN_MEANS)));
 
                 arrayLis.add(wordModel);
                 cursor.moveToNext();
@@ -70,7 +69,7 @@ public class DictionaryHelper {
     }
 
     public void insertTransaction(String tableName, Word word) {
-        String sql = "INSERT INTO " + tableName + " (" + COLOMN_WORD + ", " + COLOMN_MEANS + ") VALUES (?, ?)";
+        String sql = "INSERT INTO " + tableName + " (" + COLUMN_WORD + ", " + COLUMN_MEANS + ") VALUES (?, ?)";
         SQLiteStatement stmt = mDatabase.compileStatement(sql);
         stmt.bindString(1, word.getWord());
         stmt.bindString(2, word.getMeans());

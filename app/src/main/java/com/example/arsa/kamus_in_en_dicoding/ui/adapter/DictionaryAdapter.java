@@ -4,29 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.arsa.kamus_in_en_dicoding.R;
 import com.example.arsa.kamus_in_en_dicoding.data.model.Word;
+import com.example.arsa.kamus_in_en_dicoding.databinding.RowItemBinding;
 import com.example.arsa.kamus_in_en_dicoding.ui.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.DictionaryViewHolder> {
-
-    private Context context;
+public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.DictionaryViewHolder>{
+    private final Context context;
     private List<Word> wordList = new ArrayList<>();
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     public DictionaryAdapter(Context context) {
         this.context = context;
@@ -52,24 +49,21 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Di
 
     @Override
     public void onBindViewHolder(@NonNull final DictionaryViewHolder holder, final int position) {
-        holder.tvWords.setText(wordList.get(position).getWord());
-        holder.tvMeans.setText(wordList.get(position).getMeans());
-        holder.tvDots.setText(Html.fromHtml("&#8226;"));
-        holder.tvDots.setTextColor(getRandomMaterialColor("400"));
+        holder.rowItemBinding.txtWordItem.setText(wordList.get(position).getWord());
+        holder.rowItemBinding.txtMeansItem.setText(wordList.get(position).getMeans());
+        holder.rowItemBinding.dotsItem.setText(Html.fromHtml("&#8226;"));
+        holder.rowItemBinding.dotsItem.setTextColor(getRandomMaterialColor());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_DATA, wordList.get(position));
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra(DetailActivity.EXTRA_DATA, wordList.get(position));
+            context.startActivity(intent);
         });
     }
 
-    private int getRandomMaterialColor(String typeColor) {
+    private int getRandomMaterialColor() {
         int returnColor = Color.GRAY;
-        int arrayId = context.getResources().getIdentifier("mdcolor_" + typeColor, "array", context.getPackageName());
+        int arrayId = context.getResources().getIdentifier("mdcolor_" + "400", "array", context.getPackageName());
 
         if (arrayId != 0) {
             TypedArray colors = context.getResources().obtainTypedArray(arrayId);
@@ -90,17 +84,13 @@ public class DictionaryAdapter extends RecyclerView.Adapter<DictionaryAdapter.Di
         return wordList == null ? 0 : wordList.size();
     }
 
-    class DictionaryViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.dots_item)
-        TextView tvDots;
-        @BindView(R.id.txt_word_item)
-        TextView tvWords;
-        @BindView(R.id.txt_means_item)
-        TextView tvMeans;
+    static class DictionaryViewHolder extends RecyclerView.ViewHolder {
+        RowItemBinding rowItemBinding;
 
         public DictionaryViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            rowItemBinding = RowItemBinding.bind(itemView.getRootView());
+
         }
     }
 }

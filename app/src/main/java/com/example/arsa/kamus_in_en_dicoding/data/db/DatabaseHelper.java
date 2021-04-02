@@ -11,8 +11,8 @@ import static com.example.arsa.kamus_in_en_dicoding.data.db.DatabaseContract.sql
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DB_NAME = "dictionary.db";
-    private static int DB_VERSION = 1;
+    private static final String DB_NAME = "dictionary.db";
+    private static final int DB_VERSION = 1;
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);

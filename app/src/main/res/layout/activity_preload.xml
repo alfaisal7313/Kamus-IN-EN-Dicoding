@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.PreloadActivity">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/progress"
@@ -26,8 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/dimens_24"
-        android:layout_marginRight="@dimen/dimens_24"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
         android:indeterminateTint="@android:color/white"
         tools:ignore="UnusedAttribute" />
 </RelativeLayout>

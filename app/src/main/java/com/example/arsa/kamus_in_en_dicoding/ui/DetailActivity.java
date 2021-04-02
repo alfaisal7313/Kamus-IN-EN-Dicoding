@@ -1,36 +1,24 @@
 package com.example.arsa.kamus_in_en_dicoding.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.example.arsa.kamus_in_en_dicoding.R;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.arsa.kamus_in_en_dicoding.data.model.Word;
-
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import com.example.arsa.kamus_in_en_dicoding.databinding.ActivityDetailBinding;
 
 public class DetailActivity extends AppCompatActivity {
 
-
     public static final String EXTRA_DATA = "extra_data";
-    @BindViews({R.id.txt_word_detail, R.id.txt_means_detail})
-    List<TextView> textViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-
-        ButterKnife.bind(this);
+        ActivityDetailBinding binding = ActivityDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Word wordData = getIntent().getParcelableExtra(EXTRA_DATA);
 
-        textViews.get(0).setText(wordData.getWord());
-        textViews.get(1).setText(wordData.getMeans());
+        binding.txtWordDetail.setText(wordData.getWord());
+        binding.txtMeansDetail.setText(wordData.getMeans());
     }
 }
