@@ -10,18 +10,21 @@
     android:paddingLeft="@dimen/dimens_16"
     android:paddingTop="@dimen/dimens_8"
     android:paddingRight="@dimen/dimens_16"
-    android:paddingBottom="@dimen/dimens_8">
+    android:paddingBottom="@dimen/dimens_8"
+    tools:targetApi="m"
+    android:focusable="true">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/dots_item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginEnd="@dimen/dimens_16"
         android:layout_marginRight="@dimen/dimens_16"
         android:textSize="@dimen/logo_splash"
         tools:text="@string/dot" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_word_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,9 +34,10 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text="@string/app_name" />
+        tools:text="@string/app_name"
+        android:layout_toEndOf="@id/dots_item" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_means_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,5 +48,6 @@
         android:maxLines="1"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        tools:text="@string/app_name" />
+        tools:text="@string/app_name"
+        android:layout_toEndOf="@id/dots_item" />
 </RelativeLayout>
